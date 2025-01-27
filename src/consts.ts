@@ -1,19 +1,19 @@
-// Place any global data in this file.
-// You can import this data from anywhere in your site by using the `import` keyword.
+// 将任何全局数据放入此文件中。
+// 您可以使用 'import' 关键字从网站中的任何位置导入此数据。
 
-// Site title and description
-export const SITE_LANG = "en";
-export const SITE_TAB = "Frosti";
-export const SITE_TITLE = "Frosti 🧊";
-export const SITE_DESCRIPTION = "A blog template";
+// 网站标题和描述
+export const SITE_LANG = "cn";
+export const SITE_TAB = "yirween";
+export const SITE_TITLE = "yirween blog";
+export const SITE_DESCRIPTION = "yirween's blog";
 export const DATE_FORMAT = "ddd MMM DD YYYY";
 
-// User profile information
-export const USER_NAME = "EveSunMaple";
-export const USER_SITE = "https://frosti.saroprock.com"; // At the same time, this is also the site retrieved by the i18n configuration.
+// 用户配置文件信息
+export const USER_NAME = "Yirween";
+export const USER_SITE = "https://yirween.netlify.app/"; // 同时，这也是 i18n 配置检索到的站点。
 export const USER_AVATAR = "/profile.webp";
 
-// Server and transition settings
+// 服务器和过渡设置
 export const SERVER_URL = "https://demo.saroprock.com";
 
 // Theme settings
@@ -28,32 +28,32 @@ export const CODE_THEME = {
 
 // Menu items for navigation
 export const menuItems = [
-  { id: "home", text: "Home", href: "/", svg: "material-symbols:home-outline-rounded", target: "_self" }, // Home page
-  { id: "about", text: "About", href: "/about", svg: "material-symbols:info-outline-rounded", target: "_self" }, // About page
+  { id: "home", text: "遇境", href: "/", svg: "material-symbols:home-outline-rounded", target: "_self" }, // Home page
+  { id: "about", text: "围绕", href: "/about", svg: "material-symbols:info-outline-rounded", target: "_self" }, // About page
   {
     id: "blog",
-    text: "Blogs",
+    text: "文章们",
     href: "/blog",
     svg: "material-symbols:book-2-outline-rounded",
     target: "_self",
     subItems: [
       {
         id: "all",
-        text: "All blogs",
+        text: "全部蚊帐",
         href: "/blog",
         svg: "material-symbols:ink-pen-outline-rounded",
         target: "_self",
       }, // All blog
       {
         id: "tech",
-        text: "Tech blogs",
+        text: "赛博蚊帐",
         href: "/blog/categories/tech",
         svg: "material-symbols:deployed-code-outline",
         target: "_self",
       }, // Technology category
       {
         id: "life",
-        text: "Life blogs",
+        text: "活着的蚊帐",
         href: "/blog/categories/life",
         svg: "material-symbols:earthquake-rounded",
         target: "_self",
@@ -62,51 +62,39 @@ export const menuItems = [
   }, // Blog page with sub-items
   {
     id: "project",
-    text: "Project",
+    text: "小项目",
     href: "/project",
     svg: "material-symbols:code-blocks-outline",
     target: "_self",
   }, // Projects page
   {
     id: "friend",
-    text: "Friend",
+    text: "友链",
     href: "/friend",
     svg: "material-symbols:supervisor-account-outline-rounded",
     target: "_self",
   }, // Friends page
   {
     id: "contact",
-    text: "Contact",
-    href: "mailto:contact.evesunmaple@outlook.com", // Contact email
-    target: "_blank", // Open in a new tab
+    text: "连接我",
+    href: "mailto:contact.s5020@outlook.com", // Contact email
+    target: "_blank", // 在新选项卡中打开
     svg: "material-symbols:attach-email-outline-rounded",
   },
 ];
 
-// Social media and contact icons
+// 社交媒体和联系人图标
 export const socialIcons = [
   {
-    href: "https://afdian.net/a/saroprock",
-    ariaLabel: "Support my work",
-    title: "Support my work",
-    svg: "ri:cup-line",
-  },
-  {
-    href: "https://github.com/EveSunMaple",
+    href: "https://github.com/yirween",
     ariaLabel: "Github",
     title: "Github",
     svg: "ri:github-line",
   },
   {
-    href: "https://space.bilibili.com/438392347",
+    href: "https://space.bilibili.com/648129231",
     ariaLabel: "BiliBili",
     title: "BiliBili",
     svg: "ri:bilibili-line",
-  },
-  {
-    href: "/rss.xml",
-    ariaLabel: "RSS Feed",
-    title: "RSS Feed",
-    svg: "ri:rss-line",
   },
 ];
