@@ -1,0 +1,45 @@
+---
+
+title: "日记-2025/01/27"
+description: "过年回乡下忘带了日记本，便暂时记在这里罢"
+pubDate: "JUN 27 2025"
+image: https://yirween.github.io/Sprite/warma-night.jpg
+categories:
+  - life
+  - 日记
+tags:
+  - 心理
+  - 日常
+---
+
+import Collapse from "../../components/mdx/Collapse.astro";
+import Diff from "../../components/mdx/Diff.astro";
+import Error from "../../components/mdx/Error.astro";
+import Info from "../../components/mdx/Info.astro";
+import Kbd from "../../components/mdx/Kbd.astro";
+import Success from "../../components/mdx/Success.astro";
+import Warning from "../../components/mdx/Warning.astro";
+import TimeLine from "../../components/mdx/TimeLine.astro";
+import LinkCard from "../../components/mdx/LinkCard.astro";
+
+<Info>本文可能包含负面情绪，请酌情阅读</Info>
+
+## 一
+
+在电脑前坐了一天呢...我做了些什么呢？
+
+想了一下，不过是把自己那 github page 上的“各种链接”页面完善了一下，然后把博客站初步地建了起来。不过搭博客的时候居然没遇到什么难以解决的问题，这对于我这种“电子文盲”来说是一件非常神奇的事。毕竟我之前安装Node.js都遇到了严重的曲折，今天在乡下那什么也没有的电脑上顺利地装好了 Node.js，还把 Frosti 弄好了。
+
+我也意识到自己的效率太低了，可能完不成之前计划的“在寒假里要做的事”，进行“艺术创作”。
+
+## 二
+
+今天加了 eveSunMaple 的 QQ，请教他关于 Frosti 文章如何发布问题。在发消息的过程中，我发现我根本不知道可以回什么，只会几句“谢谢”、“好的”之类的。社交这件事是我不在行的，当别人和我说一些不能用“标准答案”或者“谢谢”之类的话回答时我就接不上话了，聊天也就这样中断了。今天这件事又提醒了我是时候治一下自己这种“接不上话”的毛病了。
+<Collapse title="包含负面情绪，已折叠">
+落下这种毛病也许是周围人对我从小暗示“我是个内向的人”，每次出去走亲戚我都不太叫人，我也不知道怎么称呼那些人，于是父母或者亲戚就说我“内向”来缓解气氛。当时的我其实并不算“内向”，是属于随便遇到同龄人就能玩在一起的那种。
+
+到了初三我就慢慢减少和人交流了，聊的天全都是学业相关的内容，语言功能也在此时渐渐退化了。
+
+到了高中，彻底将社交放弃了，现在一年半下来，从未主动找同学聊过天，感觉自己现在这样有些病态了...
+</Collapse>
+重新拾起语言交流这项技能可能有点困难，我就从在B站刷视频的时候多发发评论开始吧，也是锻炼自己的语言技能了吧...不知道有没有用，总之慢慢来吧。
