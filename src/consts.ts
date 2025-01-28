@@ -31,28 +31,28 @@ export const menuItems = [
   { id: "home", text: "遇境", href: "/", svg: "material-symbols:home-outline-rounded", target: "_self" }, // Home page
   { id: "about", text: "围绕", href: "/about", svg: "material-symbols:info-outline-rounded", target: "_self" }, // About page
   {
-    id: "blog",
+    id: "博客",
     text: "文章们",
     href: "/blog",
     svg: "material-symbols:book-2-outline-rounded",
     target: "_self",
     subItems: [
       {
-        id: "all",
+        id: "全部",
         text: "全部蚊帐",
         href: "/blog",
         svg: "material-symbols:ink-pen-outline-rounded",
         target: "_self",
       }, // All blog
       {
-        id: "tech",
-        text: "赛博蚊帐",
-        href: "/blog/categories/tech",
+        id: "杂项",
+        text: "混乱蚊帐",
+        href: "/blog/categories/miscellaneous",
         svg: "material-symbols:deployed-code-outline",
         target: "_self",
       }, // Technology category
       {
-        id: "life",
+        id: "生活",
         text: "活着的蚊帐",
         href: "/blog/categories/life",
         svg: "material-symbols:earthquake-rounded",
@@ -61,14 +61,14 @@ export const menuItems = [
     ],
   }, // Blog page with sub-items
   {
-    id: "project",
+    id: "小项目",
     text: "小项目",
     href: "/project",
     svg: "material-symbols:code-blocks-outline",
     target: "_self",
   }, // Projects page
   {
-    id: "friend",
+    id: "友链",
     text: "友链",
     href: "/friend",
     svg: "material-symbols:supervisor-account-outline-rounded",
