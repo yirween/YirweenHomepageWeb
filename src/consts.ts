@@ -2,7 +2,7 @@
 // 您可以使用 'import' 关键字从网站中的任何位置导入此数据。
 
 // 网站标题和描述
-export const SITE_LANG = "cn";
+export const SITE_LANG = "zh";
 export const SITE_TAB = "yirween";
 export const SITE_TITLE = "yirween blog";
 export const SITE_DESCRIPTION = "yirween's blog";
