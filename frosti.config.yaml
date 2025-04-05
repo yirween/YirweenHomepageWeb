@@ -14,7 +14,7 @@ site:
     pageSize: 8 # 每页显示的博客数量
   menu: # 菜单配置
     - id: home # 菜单项的唯一标识符
-      text: HOME # 菜单项显示的文本
+      text: 遇境 # 菜单项显示的文本
       href: / # 菜单项链接的地址
       svg: "material-symbols:home-outline-rounded"
       target: _self
@@ -24,40 +24,40 @@ site:
       svg: "material-symbols:info-outline-rounded"
       target: _self
     - id: blog
-      text: Blogs
+      text: 博客
       href: /blog
       svg: "material-symbols:book-2-outline-rounded"
       target: _self
       subItems:
         - id: all
-          text: All blogs
+          text: 全部
           href: /blog
           svg: "material-symbols:ink-pen-outline-rounded"
           target: _self
         - id: tech
-          text: Tech blogs
+          text: 技术
           href: /blog/category/tech
           svg: "material-symbols:deployed-code-outline"
           target: _self
         - id: life
-          text: Life blogs
+          text: 生活
           href: /blog/category/life
           svg: "material-symbols:earthquake-rounded"
           target: _self
         # 子菜单项配置
     - id: project
-      text: Project
+      text: 小项目
       href: /project
       svg: "material-symbols:code-blocks-outline"
       target: _self
     - id: friend
-      text: Friend
+      text: 友链
       href: /friend
       svg: "material-symbols:supervisor-account-outline-rounded"
       target: _self
     - id: contact
-      text: Contact
-      href: "mailto:contact.s5020@outlook.com"
+      text: 联系我
+      href: "mailto:contact.yirween@outlook.com"
       target: _blank # 在新标签页打开
       svg: "material-symbols:attach-email-outline-rounded"
 
