@@ -1,0 +1,226 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgb(50, 64, 75);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #eee;
+    justify-content: center;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+::selection {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.525);
+}
+
+.hidden {/* 隐藏元素用 */
+    display: none;
+}
+
+.background-container {
+    position: fixed;
+    width: 112%;
+    height: 100%;
+    left: -6%;
+    top: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.background-container img {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  display: block;
+}
+
+.blur-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(10px);
+    transition: filter 0.5s ease;
+}
+
+.blur-image.loaded {
+    filter: blur(0);
+}
+
+.name {
+    /* 大标题 */
+    font-size: 5em;
+    font-family: serif;
+    cursor: default;
+    z-index: 2;
+}
+
+.items {
+    /* 所有选项 */
+    position: relative;
+    z-index: 1;
+    width: 80%;
+    height: 3.5em;
+    font-size: 1.5em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 16px 0 32px 0;
+}
+
+.WoW {
+    /* 选项 */
+    border: 1px dashed #aaa;
+    margin: 0 1.5%;
+    padding: 2px 8px;
+    cursor: pointer;
+}
+
+.tip {
+    /* 底下的lodaing... */
+    position: fixed;
+    bottom: 8px;
+}
+
+.tell {
+    /* 鼠标移动到字符上右上角显示的扩展信息盒子 */
+    position: fixed;
+    width: 330px;
+    height: 140px;
+    background-color: #333;
+    top: 40px;
+    right: -400px;
+    transition: all 0.5s cubic-bezier(0.72, 0, 0.25, 1);
+    display: flex;
+    align-items: center;
+}
+
+.showtell {
+    /* 展示上面那条扩展信息 */
+    transform: translateX(-400px);
+}
+
+.tellsvg {
+    /* 扩展信息的svg */
+    margin: 0 1em 0 1.2em;
+    width: 2em;
+    height: 2em;
+}
+
+.telltext {
+    /* 扩展信息的文本 */
+    width: 260px;
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 768px) {
+    /* 标题字体优化 */
+    .name {
+    font-size: 3em;
+    text-align: center;
+    }
+
+    /* 按钮容器布局调整 */
+    .items {
+    flex-direction: column;
+    height: auto;
+    gap: 1.2rem;
+    }
+
+    /* 按钮样式优化 */
+    .WoW {
+    width: 50%;
+    margin: 0;
+    padding: 0.8rem;
+    text-align: center;
+    }
+
+    /* 背景图定位修正 */
+    .background-container {
+    width: 150%;
+    left: -25%;
+    }
+
+    /* 扩展信息框位置调整 */
+    .tell {
+    top: 20px;
+    right: -330px;
+    }
+    .showtell {
+    transform: translateX(-320px);
+    }
+}
+
+.header {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #eee;
+    justify-content: center;
+}
+
+.main-background {
+    width: 100vw;
+    background-color: #bdced5b0;
+    color: #333;
+    z-index: 1024;
+}
+
+.main {
+    margin: 32px 64px;
+    height: 90vh;
+}
+
+.animationCard {
+    width: 100vw;
+    height: 110vh;
+    border-radius: 8px;
+    color: #000;
+    background-color: #ffffff;
+    font: 1.5em "song";
+    position: fixed;
+    top: 105vh;
+    z-index: 2048;
+    transition: top cubic-bezier(0.4, 0.99, 0.4, 0.96) .5s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column
+}
+
+.rickNav {
+    width: 710px;
+    height: 44.792px;
+    margin-top: 34px;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    box-shadow: #00000037 0 0 8px;
+}
+
+.animationCard-show {
+    top: -2vh;
+    background-color: #d1d7dc;
+}
+
+.loadingNew {
+    margin-bottom: 10vw;
+}
+
+@media screen and (max-width: 742px) {
+    .rickNav {
+        background-color: #00000000;
+        box-shadow: none;
+    }
+} 
