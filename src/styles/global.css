@@ -1,5 +1,6 @@
 html {
-    background-color: rgb(225, 230, 235);
+    min-height: 100vh;
+    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
     font-family: sans-serif;
     transition: all .5s;
 }
