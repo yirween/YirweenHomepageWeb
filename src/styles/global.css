@@ -155,8 +155,25 @@ a {
     color: #555;
 }
 
+.album {
+    width: 98vw;
+    height: auto;
+    padding: 4vw;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.album > img {
+    width: 45%;
+    height: auto;
+    margin: 1%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
 /* 移动端适配 */
-@media screen and (max-width: 788px) {
+@media screen and (max-width: 816px) {
     /* 导航 */
     .nav-links {
         width: 20%;
@@ -193,5 +210,9 @@ a {
 
     .linkcards .linka .targetWebName {
         margin: 0;
+    }
+
+    .album > img {
+        width: 91%;
     }
 } 

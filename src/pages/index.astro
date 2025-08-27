@@ -47,6 +47,8 @@ import "../styles/indexPage.css";
             <div class="WoW" id="friends" title="友链">友链</div>
 
             <div class="WoW" id="more" title="更多">作品</div>
+            
+            <div class="WoW" id="photos" title="相册">相册</div>
         </div>
 
         <!-- 加载中。。。 -->
@@ -71,7 +73,7 @@ import "../styles/indexPage.css";
 
     <script>
         document.querySelectorAll(".WoW").forEach((num, index) => {
-            num.addEventListener("click", () => changePage(["about", "others", "friends", "more"][index]));
+            num.addEventListener("click", () => changePage(["about", "others", "friends", "more", "photos"][index]));
             num.addEventListener("mouseover", () => showTell(index));
             num.addEventListener("mouseout", () => closeTell());
         });
@@ -89,7 +91,7 @@ import "../styles/indexPage.css";
         }
 
         // 右上角的tip
-        const telltexts = ["快速了解我/来交个朋友？", "在其它地方找到我", "通向其它地方", "我做的一些小东西"];
+        const telltexts = ["快速了解我/来交个朋友？", "在其它地方找到我", "通向其它地方", "我做的一些小东西", "一些图片"];
         const telltextbox = document.getElementById("telltext");
         const tell = document.getElementById("tell");
         function showTell(index: number) {
