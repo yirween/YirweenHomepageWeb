@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Line from '../components/Line.astro';
 import MainText from '../components/MainText.astro'
+import ShowProject from "../components/ShowProject.astro";
 ---
 
 <BaseLayout pageTitle = "Projects">
@@ -10,6 +11,12 @@ import MainText from '../components/MainText.astro'
         <Line />
         <h2>文章</h2>
         <Line />
+        <ShowProject 
+            url="/more"
+            Name="日记" 
+            IMG="https://s21.ax1x.com/2025/08/25/pVyMVts.png"
+            Detial="我的日常"
+        />
         <h2>我的世界红石</h2>
         <Line />
         <h2>其它</h2>

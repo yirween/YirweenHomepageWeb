@@ -1,0 +1,15 @@
+---
+const { url, Name, IMG, Detial, Tag } = Astro.props;
+---
+
+<a class="projectCard" href={ url }>
+    <div class="prjImg"><img src={ IMG } alt="图片加载失败了捏"></div>
+    <div class="texts">
+        <div class="prjName">{ Name }</div>
+        <div class="prjDetial">{ Detial }</div>
+        <div class="Tags">
+            <div class="tag"></div>
+        </div>
+    </div>
+</a>
+

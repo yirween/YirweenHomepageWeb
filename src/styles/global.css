@@ -39,6 +39,7 @@ a {
     box-shadow: #00000037 0 0 8px;
     align-items: center;
     transition: all .5s;
+    z-index: 1026;
 }
 
 .navigation-bar:hover {
@@ -98,19 +99,64 @@ a {
     border-radius: 5px;
 }
 
-.linkcards .linka .linkCardMiddleLine {
+.linkcards > .linka > .linkCardMiddleLine {
     height: 80%;
     width: 2px;
     background-color: #00000030;
     margin: 0 16px;
 }
 
-.linkcards .linka .targetWebName {
+.linkcards > .linka > .targetWebName {
     margin: 0 32px 0 8px;
 }
 
+.projectCard {
+    height: 233px;
+    width: 90%;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all .6s;
+    display: flex;
+}
+
+.projectCard > .prjImg {
+    height: 100%;
+    width: 300px;
+    overflow: hidden;
+}
+
+.projectCard > .prjImg > img {
+    height: 100%;
+    transition: all .6s;
+}
+
+.projectCard:hover .prjImg > img {
+    transform: scale(1.1);
+}
+
+.projectCard:hover {
+    transform: scale(1.02) translateY(-3px);
+}
+
+.projectCard > .texts > .prjName {
+    margin: 16px 0 0 8px;
+    font-size: 1.7em;
+    font-weight: 600;
+}
+
+.projectCard:hover .projectCard > .texts > .prjName {
+    color: #6545fa;
+}
+
+.projectCard > .texts > .prjDetial {
+    margin: 0 0 0 16px;
+    font-size: .9em;
+    color: #555;
+}
+
 /* 移动端适配 */
-@media screen and (max-width: 988px) {
+@media screen and (max-width: 788px) {
     /* 导航 */
     .nav-links {
         width: 20%;
@@ -134,8 +180,8 @@ a {
 
     .linkcards .linka .targetWebIcon img { /* 目标网站图标 */
         margin: 0;
-        height: 40px;
-        width: 40px;
+        height: 80px;
+        width: 80px;
     }
 
     .linkcards .linka .linkCardMiddleLine {
