@@ -158,7 +158,7 @@ a {
 .album {
     width: 98vw;
     height: auto;
-    padding: 4vw;
+    padding: 0 4vw;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
