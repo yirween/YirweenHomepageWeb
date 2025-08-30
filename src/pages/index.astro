@@ -40,15 +40,13 @@ import "../styles/indexPage.css";
 
         <!-- 内容 -->
         <div class="items">
-            <div class="WoW" id="about" title="关于我">关于</div>
+            <div class="WoW" id="about">关于</div>
 
-            <div class="WoW" id="others" title="联系我">联系我</div>
+            <div class="WoW" id="links">链接</div>
 
-            <div class="WoW" id="friends" title="友链">友链</div>
-
-            <div class="WoW" id="more" title="更多">作品</div>
+            <div class="WoW" id="more">作品</div>
             
-            <div class="WoW" id="photos" title="相册">相册</div>
+            <div class="WoW" id="photos">相册</div>
         </div>
 
         <!-- 加载中。。。 -->
@@ -73,7 +71,7 @@ import "../styles/indexPage.css";
 
     <script>
         document.querySelectorAll(".WoW").forEach((num, index) => {
-            num.addEventListener("click", () => changePage(["about", "others", "friends", "more", "photos"][index]));
+            num.addEventListener("click", () => changePage(["about", "links", "more", "photos"][index]));
             num.addEventListener("mouseover", () => showTell(index));
             num.addEventListener("mouseout", () => closeTell());
         });
@@ -91,7 +89,7 @@ import "../styles/indexPage.css";
         }
 
         // 右上角的tip
-        const telltexts = ["快速了解我/来交个朋友？", "在其它地方找到我", "通向其它地方", "我做的一些小东西", "一些图片，方便在不方便的时候分享图片"];
+        const telltexts = ["快速了解我/来交个朋友？", "通向其它地方", "我做的一些小东西", "一些图片，方便在不方便的时候分享图片"];
         const telltextbox = document.getElementById("telltext");
         const tell = document.getElementById("tell");
         function showTell(index: number) {
@@ -209,7 +207,6 @@ import "../styles/indexPage.css";
             }, delay);
           } else {
             console.log("图片加载失败，已达到最大重试次数");
-            // 可以在这里添加加载失败的UI提示
           }
         }
 
