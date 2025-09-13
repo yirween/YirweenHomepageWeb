@@ -31,9 +31,11 @@ a {
 
 .maintext {
     font-size: 1.3em;
-    margin: 3em auto 200px;
+    margin: 3em auto 0px;
     max-width: 950px;
     padding: .8rem;
+    padding-bottom: 200px;
+    background-color: #e2ebf0;
     /* transform: translateX(3.5%); */
 }
 
