@@ -33,9 +33,9 @@ a {
 .maintext {
     font-size: 1.3em;
     margin: 3em auto 50px;
-    max-width: 950px;
+    max-width: 790px;
     min-height: 90vh;
-    padding: .8rem;
+    padding: .8rem 80px;
     padding-bottom: 200px;
     /* background-color: #f0f0f0; */
     background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
