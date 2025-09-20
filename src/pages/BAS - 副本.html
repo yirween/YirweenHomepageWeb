@@ -189,16 +189,6 @@
                 </div>
                 
                 <div class="input-group">
-                    <label for="rotateX">RotateX (角度)</label>
-                    <input type="number" id="rotateX" value="0" step="0.01">
-                </div>
-                
-                <div class="input-group">
-                    <label for="rotateY">RotateY (角度)</label>
-                    <input type="number" id="rotateY" value="0" step="0.01">
-                </div>
-                
-                <div class="input-group">
                     <label for="scale">Scale</label>
                     <input type="number" id="scale" value="1" step="0.01">
                 </div>
@@ -304,13 +294,10 @@
                 if (currentFormat === 'multiline') {
                     output = `{ \n    x = ${newX.toFixed(2)}%\n` +
                              `    y = ${newY.toFixed(2)}%\n` +
-                             `    rotateX = ${newRotateY.toFixed(2)}\n` +
-                             `    rotateY = ${newRotateX.toFixed(2)}\n` +
                              `    scale = ${newScale.toFixed(2)}\n` +
                              `    alpha = ${newAlpha.toFixed(2)}\n}`;
                 } else {
                     output = `{ x = ${newX.toFixed(2)}%, y = ${newY.toFixed(2)}%, ` +
-                             `rotateX = ${newRotateX.toFixed(2)}, rotateY = ${newRotateY.toFixed(2)}, ` +
                              `scale = ${newScale.toFixed(2)}, alpha = ${newAlpha.toFixed(2)} }`;
                 }
                 

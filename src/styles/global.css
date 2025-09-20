@@ -31,11 +31,13 @@ a {
 
 .maintext {
     font-size: 1.3em;
-    margin: 3em auto 0px;
+    margin: 3em auto 50px;
     max-width: 950px;
+    min-height: 90vh;
     padding: .8rem;
     padding-bottom: 200px;
-    background-color: #e2ebf0;
+    background-color: #f0f0f0;
+    border-radius: 8px;
     /* transform: translateX(3.5%); */
 }
 
@@ -47,15 +49,16 @@ a {
     top: 0;
     left: 0;
     display: flex;
-    background-color: #ffffff00;
-    box-shadow: #00000037 0 0 8px;
+    background-color: #ffffff02;
+    box-shadow: #00000076 0 0 8px;
     align-items: center;
     transition: all .5s;
     z-index: 1026;
 }
 
 .navigation-bar:hover {
-    background-color: #00000010;
+    background-color: #ffffff30;
+    backdrop-filter: blur(8px);
 }
 
 .nav-links {
@@ -71,7 +74,7 @@ a {
 }
 
 .nav-links:hover {
-    background-color: #57575776;
+    background-color: #c7c7c776;
 }
 
 
@@ -84,27 +87,27 @@ a {
     flex-wrap: wrap;
 }
 
-.linkcards .linka {
+.linkcards > .linka {
     width: 40%;
     height: 130px;
     padding: 0 16px;
     margin: 10px 16px 22px 16px;
-    background-color: #f0f0f0;
+    background-color: #fafafa;
     border-radius: 8px;
     box-shadow: #00000050 0 1px 6px;
-    transition: transform ease .5s, box-shadow ease .5s;
+    transition: all ease .5s;
     display: flex;
     align-items: center;
     justify-content: space-around
 }
 
-.linkcards .linka:hover {
+.linkcards > .linka:hover {
     transform: scale(1.05) translateY(-5px);
-    background-color: #ededed;
+    background-color: #fff;
     box-shadow: #00000030 0 6px 10px;
 }
 
-.linkcards .linka .targetWebIcon img { /* 目标网站图标 */
+.linkcards > .linka > .targetWebIcon img { /* 目标网站图标 */
     width: 80px;
     height: 80px;
     margin: 0 10px 0 30px;
@@ -196,14 +199,18 @@ a {
     height: 1.5em;
     margin: 8px;
     padding: 0 .5em;
+    border: 1.5px solid transparent;
     border-radius: .75em;
+    background-clip: padding-box, border-box;
+    background-origin: padding-box, border-box;
+    background-image: linear-gradient(to right, #e1e1e1, #f0f0f0), linear-gradient(90deg, #caacc8, #a4b0ca);
     cursor: pointer;
-    background-color: #8adfe5;
+    background-color: #8adfe500;
     transition: all .5s;
 }
 
 .chooseButton > .chooseLinkMode:hover {
-    background-color: #55888c;
+    background-image: linear-gradient(to right, #a8a8a8, #a8a8a8), linear-gradient(90deg, #caacc8, #a4b0ca);
 }
 
 /* 移动端适配 */

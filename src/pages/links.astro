@@ -4,18 +4,49 @@ import Line from '../components/Line.astro';
 import MainText from '../components/MainText.astro'
 import LinkCard from "../components/LinkCard.astro";
 
-// 数据分离
 const friends = [
-  { URL: "https://saroprock.com/", Icon: "https://www.saroprock.com/avatar.webp", Name: "EveSunMaple" }
+  {
+    URL: "https://saroprock.com/", 
+    Icon: "https://www.saroprock.com/avatar.webp", 
+    Name: "EveSunMaple", 
+  },
 ];
 const accounts = [
-  { URL: "https://space.bilibili.com/648129231", Icon: "https://bilibili.com/favicon.ico", Name: "BiliBili" },
-  { URL: "https://steamcommunity.com/id/yirween/", Icon: "https://steamcommunity.com/favicon.ico", Name: "Steam" }
+  {
+    URL: "https://space.bilibili.com/648129231", 
+    Icon: "https://bilibili.com/favicon.ico", 
+    Name: "BiliBili" 
+  },
+  {
+    URL: "https://steamcommunity.com/id/yirween/", 
+    Icon: "https://steamcommunity.com/favicon.ico", 
+    Name: "Steam" 
+  }
 ];
 const others = [
-  { URL: "https://yirween.lofter.com/", Icon: "https://lofter.com/favicon.ico", Name: "Lofter" },
-  { URL: "https://www.mfuns.net/member/61449", Icon: "https://www.mfuns.net/favicon.ico", Name: "Mfuns" }
+  { 
+    URL: "https://yirween.lofter.com/", 
+    Icon: "https://lofter.com/favicon.ico", 
+    Name: "Lofter" 
+  },
+  { 
+    URL: "https://www.mfuns.net/member/61449", 
+    Icon: "https://www.mfuns.net/favicon.ico", 
+    Name: "Mfuns" 
+  }
 ];
+const web = [
+  {
+    URL: "https://www.desmos.com/calculator?lang=zh-CN", 
+    Icon: "https://www.desmos.com/favicon.ico", 
+    Name: "desmos"
+  },
+  {
+    URL: "https://studymiku.cloudflare.wenqi.icu/",
+    Icon: "https://studymiku.cloudflare.wenqi.icu/favicon.ico",
+    Name: "Study With MIKU"
+  },
+]
 ---
 
 <BaseLayout pageTitle="Links">
@@ -62,7 +93,7 @@ const others = [
       <h3>收藏的网站</h3>
       <Line />
       <div class="linkcards">
-        <!-- 这里可继续扩展收藏网站数据 -->
+        {web.map(link => <LinkCard {...link} />)}
       </div>
     </div>
   </MainText>
@@ -82,20 +113,8 @@ const others = [
   });
 </script>
 
-<!-- <style>
-.chooseButton {
-  justify-content: center;
-  gap: 1em;
-}
+<style>
 .chooseLinkMode.active {
-  background-color: #55888c;
-  color: #fff;
+  color: #808080;
 }
-.contact-info {
-  margin-left: 1em;
-  color: #333;
-}
-.linkcards {
-  gap: 1em;
-}
-</style> -->
+</style>
