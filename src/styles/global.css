@@ -1,6 +1,7 @@
 html {
     min-height: 100vh;
-    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+    /* background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%); */
+    background-image: linear-gradient(to top, #6a85b6 0%, #bac8e0 100%);
     font-family: sans-serif;
     transition: all .5s;
     padding: 0;
@@ -36,9 +37,10 @@ a {
     min-height: 90vh;
     padding: .8rem;
     padding-bottom: 200px;
-    background-color: #f0f0f0;
+    /* background-color: #f0f0f0; */
+    background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
     border-radius: 8px;
-    /* transform: translateX(3.5%); */
+    box-shadow: #ffffff70 0 0 10px;
 }
 
 /* 导航样式 */
@@ -125,10 +127,13 @@ a {
     margin: 0 32px 0 8px;
 }
 
+/* 项目链接卡片 */
 .projectCard {
     height: 233px;
     width: 90%;
-    background-color: #f0f0f0;
+    margin-left: 16px;
+    /* background-color: #fdffff; */
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     border-radius: 8px;
     overflow: hidden;
     transition: all .6s;
