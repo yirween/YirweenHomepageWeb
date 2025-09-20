@@ -212,7 +212,7 @@ body {
 
 .animationCard-show {
     top: -2vh;
-    background-color: #d1d7dc;
+    background-image: linear-gradient(to top, #6a85b6 0%, #bac8e0 100%);
 }
 
 .loadingNew {
