@@ -184,7 +184,7 @@ body {
 }
 
 .animationCard {
-    width: 100vw;
+    /* width: 100vw;
     height: 110vh;
     border-radius: 8px;
     color: #000;
@@ -197,10 +197,18 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-direction: column
+    flex-direction: column */
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: 2048;
+    opacity: 0;
+    pointer-events: none;
+    transition: all cubic-bezier(0.4, 0.99, 0.4, 0.96) .5s;
+    background-image: linear-gradient(to top, #6a85b6 0%, #bac8e0 100%);
 }
 
-.rickNav {
+/* .rickNav {
     width: 100%;
     height: 2.6em;
     display: flex;
@@ -208,16 +216,17 @@ body {
     box-shadow: #00000037 0 0 8px;
     align-items: center;
     transition: all .5s;
-}
+} */
 
 .animationCard-show {
-    top: -2vh;
-    background-image: linear-gradient(to top, #6a85b6 0%, #bac8e0 100%);
+    /* top: -2vh;
+    background-image: linear-gradient(to top, #6a85b6 0%, #bac8e0 100%); */
+    opacity: 1;
 }
 
-.loadingNew {
+/* .loadingNew {
     margin-bottom: 10vw;
-}
+} */
 
 @media screen and (max-width: 742px) {
     .rickNav {
@@ -225,3 +234,27 @@ body {
         box-shadow: none;
     }
 } 
+
+.maintext {
+    transform: translateX(-7px);
+}
+
+.maintext-show {
+    animation-duration: .5s;
+    animation-name: slidein;
+}
+
+@keyframes slidein {
+    from {
+        transform: translateY(50px) translateX(-7px) scale3D(.9, .6, 1 );
+    }
+
+    to {
+        transform: translateY(00px) translateX(-7px) scale3d(1, 1, 1);
+    }
+}
+
+.blur {
+    filter: blur(10px);
+    translate: all .15s;
+}

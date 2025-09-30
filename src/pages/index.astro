@@ -1,4 +1,6 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import MainText from "../components/MainText.astro";
 import "../styles/indexPage.css";
 ---
 
@@ -36,10 +38,10 @@ import "../styles/indexPage.css";
         </div>
 
         <!-- 大标题 -->
-        <div class="name">Yirween</div>
+        <div class="name" id="name">Yirween</div>
 
         <!-- 内容 -->
-        <div class="items">
+        <div class="items" id="items">
             <div class="WoW" id="about">关于</div>
 
             <div class="WoW" id="links">链接</div>
@@ -63,10 +65,16 @@ import "../styles/indexPage.css";
         </div>
     </div> -->
 
+    <!-- 页面跳转过渡 -->
     <div class="animationCard" id="animationCard">
-        <div class="rickNav"></div>
+        <!-- <div class="rickNav"></div>
         <div class="loadingNew">loading...</div>
-        <div class="ILikeYouAndIWantYou"></div>
+        <div class="ILikeYouAndIWantYou"></div> -->
+        <BaseLayout>
+          <MainText>
+            <div style="height: 120vh; width:100%"></div>
+          </MainText>
+        </BaseLayout>
     </div>
 
     <script>
@@ -80,9 +88,15 @@ import "../styles/indexPage.css";
         function changePage(page: string) {
             console.log(page)
             const animationCard = document.getElementById("animationCard");
-            animationCard?.classList.add("animationCard-show");
             const img = document.querySelector(".blur-image");
+            const textbox = document.getElementById("maintext");
+            const name = document.getElementById("name");
+            const items = document.getElementById("items");
+            animationCard?.classList.add("animationCard-show");
             img?.classList.remove("loaded");
+            textbox?.classList.add("maintext-show");
+            name?.classList.add("blur");
+            items?.classList.add("blur");
             setTimeout(() => {
                 window.location.href = page;
             }, 500);
