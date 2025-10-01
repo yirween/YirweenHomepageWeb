@@ -1,6 +1,5 @@
 html {
     min-height: 100vh;
-    /* background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%); */
     background-image: linear-gradient(to top, #6a85b6 0%, #bac8e0 100%);
     font-family: sans-serif;
     transition: all .5s;
@@ -13,6 +12,8 @@ body {
     line-height: 1.5;
     padding: 0;
     margin: 0;
+    display: flex;
+    justify-content: center;
 }
 
 .hidden { /* 用于隐藏元素 */
@@ -32,12 +33,12 @@ a {
 
 .maintext {
     font-size: 1.3em;
-    margin: 3em auto 50px;
+    margin: 3em 0 50px;
+    width: 100%;
     max-width: 790px;
     min-height: 90vh;
     padding: .8rem 80px;
     padding-bottom: 200px;
-    /* background-color: #f0f0f0; */
     background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
     border-radius: 8px;
     box-shadow: #ffffff70 0 0 10px;
@@ -125,6 +126,25 @@ a {
 
 .linkcards > .linka > .targetWebName {
     margin: 0 32px 0 8px;
+}
+
+/* 右下角按钮 */
+.scrollup {
+    width: 70px;
+    height: 70px;
+    position: fixed;
+    right: 8px;
+    bottom: 20px;
+    background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+    box-shadow: #02121650 -1px -1px 5px;
+    border-radius: 50%;
+    transition: all .5s;
+    display: flex;    
+    align-items: center;
+}
+
+.scrollup:hover {
+    box-shadow: #02121650 -1px -1px 8px;
 }
 
 /* 项目链接卡片 */

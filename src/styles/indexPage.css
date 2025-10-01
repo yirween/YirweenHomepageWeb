@@ -171,36 +171,12 @@ body {
     justify-content: center;
 }
 
-.main-background {
-    width: 100vw;
-    background-color: #bdced5b0;
-    color: #333;
-    z-index: 1024;
-}
-
-.main {
-    margin: 32px 64px;
-    height: 90vh;
-}
-
 .animationCard {
-    /* width: 100vw;
-    height: 110vh;
-    border-radius: 8px;
-    color: #000;
-    background-color: #ffffff;
-    font: 1.5em "song";
-    position: fixed;
-    top: 105vh;
-    z-index: 2048;
-    transition: top cubic-bezier(0.4, 0.99, 0.4, 0.96) .5s;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column */
     height: 100vh;
     width: 100vw;
     position: fixed;
+    top: 0;
+    left: 0;
     z-index: 2048;
     opacity: 0;
     pointer-events: none;
@@ -208,25 +184,24 @@ body {
     background-image: linear-gradient(to top, #6a85b6 0%, #bac8e0 100%);
 }
 
-/* .rickNav {
-    width: 100%;
-    height: 2.6em;
-    display: flex;
-    background-color: #ffffff00;
-    box-shadow: #00000037 0 0 8px;
-    align-items: center;
-    transition: all .5s;
-} */
-
 .animationCard-show {
-    /* top: -2vh;
-    background-image: linear-gradient(to top, #6a85b6 0%, #bac8e0 100%); */
     opacity: 1;
 }
 
-/* .loadingNew {
-    margin-bottom: 10vw;
-} */
+.blur {
+    filter: blur(10px);
+    translate: all .15s;
+}
+
+.maintext {
+    transform: translateX(-10px);
+    margin: 3em auto 50px;
+}
+
+.maintext-show {
+    animation-duration: .5s;
+    animation-name: slidein;
+}
 
 @media screen and (max-width: 742px) {
     .rickNav {
@@ -234,15 +209,6 @@ body {
         box-shadow: none;
     }
 } 
-
-.maintext {
-    transform: translateX(-7px);
-}
-
-.maintext-show {
-    animation-duration: .5s;
-    animation-name: slidein;
-}
 
 @keyframes slidein {
     from {
@@ -254,7 +220,23 @@ body {
     }
 }
 
-.blur {
-    filter: blur(10px);
-    translate: all .15s;
+/* 页面下半部分 */
+.main {
+    width: 100vw;
+    height: 100vh;
+    background-color: #bdced5b0;
+    color: #333;
+    z-index: 1024;
+}
+
+.nowtime-out {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.now-time {
+    font-size: 3em;
 }

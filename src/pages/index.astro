@@ -14,7 +14,7 @@ import "../styles/indexPage.css";
     <title>YIRWEEN</title>
 </head>
 
-<body>
+<body style="background-color: rgb(50, 64, 75);">
   <!-- 背景图 -->
     <div class="background-container">
         <img
@@ -56,20 +56,15 @@ import "../styles/indexPage.css";
     </div>
 
 
-    <!-- <div class="main-background">
-        <div class="main">
-            <h1>啊！这里还在施工呢...<br>你等会再来...看...可以吗...?</h1>
-            <div class="helloCard">
-
+    <!-- 页面下半部分 -->
+        <!-- <div class="main">
+            <div class="nowtime-out" id="nowTimeOutBox">
+              <div class="now-time" id="nowTime">10</div>
             </div>
-        </div>
-    </div> -->
+        </div> -->
 
     <!-- 页面跳转过渡 -->
     <div class="animationCard" id="animationCard">
-        <!-- <div class="rickNav"></div>
-        <div class="loadingNew">loading...</div>
-        <div class="ILikeYouAndIWantYou"></div> -->
         <BaseLayout>
           <MainText>
             <div style="height: 120vh; width:100%"></div>
@@ -78,6 +73,8 @@ import "../styles/indexPage.css";
     </div>
 
     <script>
+        console.log("我喜欢你");
+
         document.querySelectorAll(".WoW").forEach((num, index) => {
             num.addEventListener("click", () => changePage(["about", "links", "more", "photos"][index]));
             num.addEventListener("mouseover", () => showTell(index));
@@ -234,4 +231,59 @@ import "../styles/indexPage.css";
       const tip = document.getElementById("tip");
       initLazyLoad();
     </script>
+
+    <!-- <script>
+      let lastScroll = 0;
+      let nowScroll = 0;
+      let webHeight = window.innerHeight;
+      let isProgrammaticScroll = false;
+      let isScrolling = false;
+
+      document.addEventListener("scroll", (event) => {
+        // 如果是程序触发的滚动，忽略此次事件
+        if (isProgrammaticScroll) {
+          isProgrammaticScroll = false;
+          return;
+        }
+        
+        // 如果正在执行滚动动画，跳过
+        if (isScrolling) return;
+        
+        nowScroll = window.scrollY;
+        
+        // 添加微小阈值，避免在边界处抖动
+        const scrollThreshold = 10;
+        
+        if (Math.abs(nowScroll - lastScroll) < scrollThreshold) {
+          return;
+        }
+        
+        // 立即执行滚动逻辑
+        if (nowScroll > lastScroll) {
+          // 向下滚动 - 滚动到底部
+          isProgrammaticScroll = true;
+          isScrolling = true;
+          window.scrollTo({ top: webHeight, behavior: "smooth" }); 
+          console.log("向下滚动");
+        } else {
+          // 向上滚动 - 滚动到顶部
+          isProgrammaticScroll = true;
+          isScrolling = true;
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          console.log("向上滚动");
+        }
+        
+        lastScroll = nowScroll;
+        
+        // 滚动动画完成后重置状态
+        setTimeout(() => {
+          isScrolling = false;
+        }, 150); // 这个时间应该与滚动动画时长匹配
+      });
+
+      // 响应窗口大小变化
+      window.addEventListener('resize', () => {
+        webHeight = window.innerHeight;
+      });
+    </script> -->
 </body>
