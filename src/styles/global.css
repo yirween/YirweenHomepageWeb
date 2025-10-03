@@ -1,6 +1,6 @@
 html {
     min-height: 100vh;
-    background-image: linear-gradient(to top, #6a85b6 0%, #bac8e0 100%);
+    background-image: linear-gradient(-30deg, #a1eafb 0%, #bac8e0 70%);
     font-family: sans-serif;
     transition: all .5s;
     padding: 0;
@@ -52,7 +52,7 @@ a {
     top: 0;
     left: 0;
     display: flex;
-    background-color: #ffffff02;
+    background-color: #ffffff22;
     box-shadow: #00000076 0 0 8px;
     align-items: center;
     transition: all .5s;
@@ -77,7 +77,7 @@ a {
 }
 
 .nav-links:hover {
-    background-color: #c7c7c776;
+    background-color: #ffffff76;
 }
 
 
@@ -241,6 +241,10 @@ a {
 /* 移动端适配 */
 @media screen and (max-width: 816px) {
     /* 导航 */
+    .navigation-bar {
+        background-color: #fdfdfd;
+    }
+
     .nav-links {
         width: 20%;
     }
@@ -251,34 +255,38 @@ a {
         align-items: center;
     }
 
-    .linkcards .linka {
+    .linkcards > .linka {
         width: auto;
     }
 
-    .linkcards .linka {
+    .linkcards > .linka {
         width: 80%;
         padding: 18px 0;
         flex-direction: column;
     }  
 
-    .linkcards .linka .targetWebIcon img { /* 目标网站图标 */
+    .linkcards > .linka > .targetWebIcon > img { /* 目标网站图标 */
         margin: 0;
         height: 80px;
         width: 80px;
     }
 
-    .linkcards .linka .linkCardMiddleLine {
+    .linkcards > .linka > .linkCardMiddleLine {
         height: 2px;
         width: 100%;
         background-color: #00000030;
         margin: 0;
     }
 
-    .linkcards .linka .targetWebName {
+    .linkcards > .linka > .targetWebName {
         margin: 0;
     }
 
     .album > img {
         width: 91%;
+    }
+
+    .maintext {
+        opacity: .8;
     }
 } 
