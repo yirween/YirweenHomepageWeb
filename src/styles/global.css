@@ -81,6 +81,50 @@ a {
 }
 
 
+/* 滚动条 */
+::-webkit-scrollbar {
+    width: 0;
+}
+
+.scrollBar {
+    height: 100vh;
+    width: 40px;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.scrollBar > .scrollLine {
+    height: 150vh;
+    width: 1px;
+    position: fixed;
+    right: 19px;
+    top: -140vh;
+    background-color: #000;
+}
+
+.scrollBar > .scrollLine > .scrollBall {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    bottom: 0;
+    left: -9px;
+    border-radius: 50%;
+    background-color: #000;
+}
+
+.lastView {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    left: 12px;
+}
+
 /* 链接卡片 */
 .linkcards {
     width: 100%;
