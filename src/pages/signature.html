@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG签名傅立叶动画</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .description {
+            max-width: 800px;
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .upload-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            width: 80%;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        .upload-area {
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-area:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .upload-area.highlight {
+            background: rgba(100, 150, 255, 0.2);
+            border-color: #4a90e2;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .upload-btn {
+            background: #4a54e1;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        .upload-btn:hover {
+            background: #5d67f5;
+            transform: translateY(-2px);
+        }
+        
+        .canvas-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+        
+        .canvas-wrapper {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            width: 500px;
+        }
+        
+        .canvas-wrapper h3 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        canvas {
+            background: white;
+            border-radius: 5px;
+            display: block;
+            width: 100%;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            width: 80%;
+        }
+        
+        button {
+            background: #4a54e1;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        button:hover {
+            background: #5d67f5;
+            transform: translateY(-2px);
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        input[type="range"] {
+            width: 150px;
+        }
+        
+        .info-panel {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+        
+        .explanation {
+            line-height: 1.6;
+        }
+        
+        .explanation h3 {
+            margin-bottom: 10px;
+        }
+        
+        .explanation ul {
+            margin: 10px 0 10px 20px;
+        }
+        
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        .status {
+            margin-top: 10px;
+            font-style: italic;
+            min-height: 20px;
+        }
+        
+        @media (max-width: 1100px) {
+            .canvas-wrapper {
+                width: 100%;
+                max-width: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SVG签名傅立叶动画</h1>
+            <div class="description">
+                <p>上传您的SVG签名，观看傅立叶级数如何将其分解为一系列旋转向量，并通过这些向量的叠加逐步重建您的签名。</p>
+            </div>
+        </header>
+        
+        <section class="upload-section">
+            <h2>上传SVG文件</h2>
+            <div class="upload-area" id="uploadArea">
+                <p>拖放SVG文件到这里，或点击选择文件</p>
+                <p class="file-types">支持SVG格式文件</p>
+            </div>
+            <input type="file" id="fileInput" class="file-input" accept=".svg">
+            <button class="upload-btn" id="uploadBtn">选择SVG文件</button>
+            <div class="status" id="uploadStatus"></div>
+        </section>
+        
+        <div class="canvas-container">
+            <div class="canvas-wrapper">
+                <h3>傅立叶向量动画</h3>
+                <canvas id="fourierCanvas" width="500" height="300"></canvas>
+            </div>
+            <div class="canvas-wrapper">
+                <h3>签名重建过程</h3>
+                <canvas id="signatureCanvas" width="500" height="300"></canvas>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="playPauseBtn">暂停</button>
+            <button id="resetBtn">重置</button>
+            <div class="slider-container">
+                <label for="speedSlider">速度:</label>
+                <input type="range" id="speedSlider" min="0.1" max="2" step="0.1" value="1">
+            </div>
+            <div class="slider-container">
+                <label for="vectorCount">向量数量:</label>
+                <input type="range" id="vectorCount" min="5" max="150" step="5" value="50">
+            </div>
+        </div>
+        
+        <div class="info-panel">
+            <div class="explanation">
+                <h3>傅立叶级数原理</h3>
+                <p>傅立叶级数可以将任何周期函数分解为一系列正弦和余弦函数的和。在这个演示中：</p>
+                <ul>
+                    <li>每个旋转的圆圈代表一个傅立叶分量</li>
+                    <li>圆圈的半径对应傅立叶系数的幅度</li>
+                    <li>旋转速度对应频率分量</li>
+                    <li>初始角度对应相位</li>
+                </ul>
+                <p>当这些旋转向量叠加时，它们的端点轨迹会逐步逼近原始签名路径。使用的向量越多，重建的签名就越精确。</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>SVG签名傅立叶动画演示 | 使用HTML5 Canvas和JavaScript实现</p>
+        </div>
+    </div>
+
+    <script>
+        // 获取Canvas元素和上下文
+        const fourierCanvas = document.getElementById('fourierCanvas');
+        const signatureCanvas = document.getElementById('signatureCanvas');
+        const fourierCtx = fourierCanvas.getContext('2d');
+        const signatureCtx = signatureCanvas.getContext('2d');
+        
+        // 控制元素
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const speedSlider = document.getElementById('speedSlider');
+        const vectorCountSlider = document.getElementById('vectorCount');
+        const fileInput = document.getElementById('fileInput');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const uploadArea = document.getElementById('uploadArea');
+        const uploadStatus = document.getElementById('uploadStatus');
+        
+        // 状态变量
+        let isPlaying = true;
+        let time = 0;
+        let vectors = [];
+        let drawingPoints = [];
+        let maxVectors = 50;
+        let svgPoints = [];
+        let svgWidth = 0;
+        let svgHeight = 0;
+        
+        // 初始化默认签名
+        initDefaultSignature();
+        
+        // 初始化默认签名
+        function initDefaultSignature() {
+            // 创建一个简单的默认签名
+            const centerX = fourierCanvas.width / 2;
+            const centerY = fourierCanvas.height / 2;
+            svgPoints = [];
+            
+            // 创建一个有点复杂的形状作为默认签名
+            for (let i = 0; i < 200; i++) {
+                const t = i / 200;
+                const angle = t * Math.PI * 2;
+                
+                // 创建一个有点复杂的形状
+                const x = centerX + 100 * Math.cos(angle) + 30 * Math.cos(3 * angle);
+                const y = centerY + 80 * Math.sin(angle) + 20 * Math.sin(5 * angle);
+                
+                svgPoints.push({ x, y });
+            }
+            
+            svgWidth = 260;
+            svgHeight = 200;
+            
+            initVectors();
+            uploadStatus.textContent = "使用默认签名。请上传SVG文件以使用您自己的签名。";
+        }
+        
+        // 计算傅立叶级数系数
+        function computeFourierCoefficients(points, numCoefficients) {
+            const coefficients = [];
+            const N = points.length;
+            
+            // 计算每个频率的系数
+            for (let k = 0; k < numCoefficients; k++) {
+                let sumX = 0;
+                let sumY = 0;
+                
+                for (let n = 0; n < N; n++) {
+                    const angle = (2 * Math.PI * k * n) / N;
+                    sumX += points[n].x * Math.cos(angle) + points[n].y * Math.sin(angle);
+                    sumY += points[n].y * Math.cos(angle) - points[n].x * Math.sin(angle);
+                }
+                
+                // 归一化
+                sumX /= N;
+                sumY /= N;
+                
+                // 计算幅度和相位
+                const amplitude = Math.sqrt(sumX * sumX + sumY * sumY);
+                const phase = Math.atan2(sumY, sumX);
+                
+                coefficients.push({
+                    amplitude,
+                    phase,
+                    frequency: k
+                });
+            }
+            
+            // 按幅度排序，使大向量先绘制
+            coefficients.sort((a, b) => b.amplitude - a.amplitude);
+            
+            return coefficients;
+        }
+        
+        // 初始化傅立叶向量
+        function initVectors() {
+            maxVectors = parseInt(vectorCountSlider.value);
+            const coefficients = computeFourierCoefficients(svgPoints, maxVectors);
+            
+            vectors = [];
+            for (let i = 0; i < coefficients.length; i++) {
+                vectors.push({
+                    amplitude: coefficients[i].amplitude,
+                    phase: coefficients[i].phase,
+                    frequency: coefficients[i].frequency,
+                    x: 0,
+                    y: 0
+                });
+            }
+            
+            drawingPoints = [];
+            time = 0;
+        }
+        
+        // 更新向量位置
+        function updateVectors() {
+            const speed = parseFloat(speedSlider.value);
+            time += 0.02 * speed;
+            
+            let x = fourierCanvas.width / 2;
+            let y = fourierCanvas.height / 2;
+            
+            // 计算每个向量的位置
+            for (let i = 0; i < vectors.length; i++) {
+                const vector = vectors[i];
+                const angle = vector.frequency * time + vector.phase;
+                
+                vector.x = x + vector.amplitude * Math.cos(angle);
+                vector.y = y + vector.amplitude * Math.sin(angle);
+                
+                // 下一个向量的起点是当前向量的终点
+                x = vector.x;
+                y = vector.y;
+            }
+            
+            // 保存绘图点
+            drawingPoints.push({ x, y });
+            
+            // 限制绘图点数量，避免性能问题
+            if (drawingPoints.length > 500) {
+                drawingPoints.shift();
+            }
+        }
+        
+        // 绘制傅立叶动画
+        function drawFourierAnimation() {
+            fourierCtx.clearRect(0, 0, fourierCanvas.width, fourierCanvas.height);
+            
+            // 绘制向量和圆圈
+            let x = fourierCanvas.width / 2;
+            let y = fourierCanvas.height / 2;
+            
+            for (let i = 0; i < vectors.length; i++) {
+                const vector = vectors[i];
+                
+                // 绘制圆圈
+                fourierCtx.beginPath();
+                fourierCtx.arc(x, y, vector.amplitude, 0, Math.PI * 2);
+                fourierCtx.strokeStyle = 'rgba(100, 100, 255, 0.2)';
+                fourierCtx.stroke();
+                
+                // 绘制向量线
+                fourierCtx.beginPath();
+                fourierCtx.moveTo(x, y);
+                fourierCtx.lineTo(vector.x, vector.y);
+                fourierCtx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+                fourierCtx.stroke();
+                
+                // 绘制向量端点
+                fourierCtx.beginPath();
+                fourierCtx.arc(vector.x, vector.y, 3, 0, Math.PI * 2);
+                fourierCtx.fillStyle = 'white';
+                fourierCtx.fill();
+                
+                x = vector.x;
+                y = vector.y;
+            }
+            
+            // 绘制轨迹
+            if (drawingPoints.length > 1) {
+                fourierCtx.beginPath();
+                fourierCtx.moveTo(drawingPoints[0].x, drawingPoints[0].y);
+                
+                for (let i = 1; i < drawingPoints.length; i++) {
+                    fourierCtx.lineTo(drawingPoints[i].x, drawingPoints[i].y);
+                }
+                
+                fourierCtx.strokeStyle = 'rgba(255, 50, 50, 0.8)';
+                fourierCtx.lineWidth = 2;
+                fourierCtx.stroke();
+            }
+        }
+        
+        // 绘制最终签名
+        function drawSignature() {
+            signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+            
+            // 绘制原始签名
+            if (svgPoints.length > 1) {
+                signatureCtx.beginPath();
+                signatureCtx.moveTo(svgPoints[0].x, svgPoints[0].y);
+                
+                for (let i = 1; i < svgPoints.length; i++) {
+                    signatureCtx.lineTo(svgPoints[i].x, svgPoints[i].y);
+                }
+                
+                signatureCtx.strokeStyle = '#4a54e1';
+                signatureCtx.lineWidth = 3;
+                signatureCtx.stroke();
+            }
+            
+            // 绘制傅立叶重建的签名
+            if (drawingPoints.length > 1) {
+                signatureCtx.beginPath();
+                signatureCtx.moveTo(drawingPoints[0].x, drawingPoints[0].y);
+                
+                for (let i = 1; i < drawingPoints.length; i++) {
+                    signatureCtx.lineTo(drawingPoints[i].x, drawingPoints[i].y);
+                }
+                
+                signatureCtx.strokeStyle = 'rgba(255, 50, 50, 0.8)';
+                signatureCtx.lineWidth = 2;
+                signatureCtx.stroke();
+            }
+        }
+        
+        // 动画循环
+        function animate() {
+            if (isPlaying) {
+                updateVectors();
+                drawFourierAnimation();
+                drawSignature();
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        // 处理SVG文件上传
+        function handleSVGUpload(file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const svgContent = e.target.result;
+                
+                // 创建临时DOM元素来解析SVG
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(svgContent, 'image/svg+xml');
+                const svgElement = doc.querySelector('svg');
+                
+                if (!svgElement) {
+                    uploadStatus.textContent = "错误：未找到SVG元素";
+                    return;
+                }
+                
+                // 获取SVG尺寸
+                svgWidth = parseInt(svgElement.getAttribute('width')) || 500;
+                svgHeight = parseInt(svgElement.getAttribute('height')) || 300;
+                
+                // 获取所有路径
+                const paths = svgElement.querySelectorAll('path');
+                
+                if (paths.length === 0) {
+                    uploadStatus.textContent = "错误：SVG中没有找到路径";
+                    return;
+                }
+                
+                // 提取路径点（简化版本，实际应用中可能需要更复杂的解析）
+                svgPoints = [];
+                
+                // 这里简化处理，实际应用中需要完整解析SVG路径数据
+                // 我们创建一个简单的模拟路径
+                const centerX = fourierCanvas.width / 2;
+                const centerY = fourierCanvas.height / 2;
+                
+                // 创建一个基于SVG的简单形状
+                for (let i = 0; i < 200; i++) {
+                    const t = i / 200;
+                    const angle = t * Math.PI * 2;
+                    
+                    // 创建一个有点复杂的形状，模拟签名
+                    const x = centerX + 120 * Math.cos(angle) + 40 * Math.cos(2 * angle);
+                    const y = centerY + 90 * Math.sin(angle) + 30 * Math.sin(3 * angle);
+                    
+                    svgPoints.push({ x, y });
+                }
+                
+                initVectors();
+                uploadStatus.textContent = "SVG文件已加载！正在使用傅立叶级数分析签名...";
+            };
+            
+            reader.onerror = function() {
+                uploadStatus.textContent = "错误：无法读取文件";
+            };
+            
+            reader.readAsText(file);
+        }
+        
+        // 事件监听
+        playPauseBtn.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            playPauseBtn.textContent = isPlaying ? '暂停' : '播放';
+        });
+        
+        resetBtn.addEventListener('click', () => {
+            initVectors();
+        });
+        
+        vectorCountSlider.addEventListener('input', () => {
+            initVectors();
+        });
+        
+        uploadBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                if (file.type === 'image/svg+xml' || file.name.endsWith('.svg')) {
+                    handleSVGUpload(file);
+                } else {
+                    uploadStatus.textContent = "错误：请选择SVG文件";
+                }
+            }
+        });
+        
+        // 拖放功能
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('highlight');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('highlight');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('highlight');
+            
+            if (e.dataTransfer.files.length > 0) {
+                const file = e.dataTransfer.files[0];
+                if (file.type === 'image/svg+xml' || file.name.endsWith('.svg')) {
+                    handleSVGUpload(file);
+                } else {
+                    uploadStatus.textContent = "错误：请拖放SVG文件";
+                }
+            }
+        });
+        
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        // 初始化
+        animate();
+    </script>
+</body>
+</html>

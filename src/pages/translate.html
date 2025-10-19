@@ -1,0 +1,174 @@
+<!-- language: html -->
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>SVG 填充反转（填充->透明，空白->黑色）</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial; padding:18px; background:#f6f8fb; color:#111}
+    textarea{width:100%;height:240px;font-family:monospace; font-size:13px; padding:8px; box-sizing:border-box;}
+    .row{display:flex; gap:12px; margin-top:8px;}
+    button{padding:8px 12px;cursor:pointer;}
+    .preview{border:1px solid #ddd; padding:8px; background:#fff;}
+  </style>
+</head>
+<body>
+  <h3>SVG 填充反转工具</h3>
+  <p>说明：将原图形区域变为透明（洞），其它区域用黑色填充。粘入 SVG 源码，点击 Convert。</p>
+  <textarea id="input" placeholder="粘入 SVG 源码..."></textarea>
+  <div class="row">
+    <button id="do">Convert</button>
+    <button id="download">下载 SVG</button>
+    <button id="clear">清空</button>
+  </div>
+  <h4>输出 SVG（可复制或下载）</h4>
+  <textarea id="output" readonly></textarea>
+  <h4>预览</h4>
+  <div class="preview" id="preview" style="height:300px; display:flex; align-items:center; justify-content:center;"></div>
+
+<script>
+function transformSvg(svgText){
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(svgText, 'image/svg+xml');
+  const orig = doc.querySelector('svg');
+  if(!orig) throw new Error('未检测到 <svg> 元素');
+
+  const viewBox = orig.getAttribute('viewBox');
+  const width = orig.getAttribute('width') || null;
+  const height = orig.getAttribute('height') || null;
+  const xmlns = 'http://www.w3.org/2000/svg';
+
+  // 解析 viewBox 或 width/height 得到画布坐标
+  let vbX = 0, vbY = 0, vbW = 0, vbH = 0;
+  if(viewBox){
+    const parts = viewBox.trim().split(/[\s,]+/).map(Number);
+    vbX = parts[0]; vbY = parts[1]; vbW = parts[2]; vbH = parts[3];
+  } else if(width && height){
+    vbW = parseFloat(width); vbH = parseFloat(height);
+  } else {
+    // fallback：尝试使用 getBBox（需要在有渲染环境时）
+    throw new Error('SVG 缺少 viewBox 且没有 width/height，无法确定画布尺寸。请添加 viewBox。');
+  }
+
+  // helper: 确保 path 以 Z 结束（闭合）
+  const closeIfNeeded = (d) => {
+    if(!d) return '';
+    return /z\s*$/i.test(d.trim()) ? d : (d + ' Z');
+  };
+
+  // helper: shape -> path d
+  const shapeToPath = (el) => {
+    const tag = el.tagName.toLowerCase();
+    const get = (k, def=0) => parseFloat(el.getAttribute(k) || def);
+    if(tag === 'path') return el.getAttribute('d') || '';
+    if(tag === 'rect'){
+      const x = get('x',0), y = get('y',0), w = get('width',0), h = get('height',0);
+      const rx = parseFloat(el.getAttribute('rx') || 0), ry = parseFloat(el.getAttribute('ry') || rx);
+      if(rx > 0 || ry > 0){
+        // rounded rect approximation using arc
+        const rrx = Math.min(rx, w/2), rry = Math.min(ry, h/2);
+        return `M ${x+rrx} ${y} H ${x + w - rrx} A ${rrx} ${rry} 0 0 1 ${x + w} ${y + rry} V ${y + h - rry} A ${rrx} ${rry} 0 0 1 ${x + w - rrx} ${y + h} H ${x + rrx} A ${rrx} ${rry} 0 0 1 ${x} ${y + h - rry} V ${y + rry} A ${rrx} ${rry} 0 0 1 ${x + rrx} ${y} Z`;
+      }
+      return `M ${x} ${y} H ${x + w} V ${y + h} H ${x} Z`;
+    }
+    if(tag === 'circle'){
+      const cx = get('cx',0), cy = get('cy',0), r = get('r',0);
+      return `M ${cx + r} ${cy} A ${r} ${r} 0 1 0 ${cx - r} ${cy} A ${r} ${r} 0 1 0 ${cx + r} ${cy} Z`;
+    }
+    if(tag === 'ellipse'){
+      const cx = get('cx',0), cy = get('cy',0), rx = get('rx',0), ry = get('ry',0);
+      return `M ${cx + rx} ${cy} A ${rx} ${ry} 0 1 0 ${cx - rx} ${cy} A ${rx} ${ry} 0 1 0 ${cx + rx} ${cy} Z`;
+    }
+    if(tag === 'polygon' || tag === 'polyline'){
+      const pts = (el.getAttribute('points') || '').trim().split(/[\s,]+/).map(Number);
+      if(pts.length < 4) return '';
+      let d = `M ${pts[0]} ${pts[1]}`;
+      for(let i=2;i<pts.length;i+=2) d += ` L ${pts[i]} ${pts[i+1]}`;
+      if(tag === 'polygon') d += ' Z';
+      else d += ' Z'; // polyline 不闭合的话也强制闭合以做洞
+      return d;
+    }
+    // 对于 line、text、image 等元素忽略（不会生成洞）
+    return '';
+  };
+
+  // 收集所有可转为 path 的子元素（按文档顺序）
+  const allowed = ['path','rect','circle','ellipse','polygon','polyline'];
+  const nodes = Array.from(orig.querySelectorAll(allowed.join(',')));
+
+  // 如果有 transform 或者 stroke 且你需要精确处理，提示用户（本算法不应用 transform，也不处理 stroke->fill）
+  const hasTransforms = nodes.some(n => n.hasAttribute('transform'));
+  const hasStroke = nodes.some(n => n.hasAttribute('stroke') && String(n.getAttribute('stroke')).trim() !== '');
+  if(hasTransforms || hasStroke){
+    console.warn('注意：输入包含 transform 或 stroke。当前方法不会应用 transform，也不会把 stroke 转成填充。如需支持，请先在编辑器中对元素执行“应用变换”和“stroke to path”，或使用布尔库。');
+  }
+
+  // 构造 outer rect path（以 viewBox 为准）
+  const outerD = `M ${vbX} ${vbY} H ${vbX + vbW} V ${vbY + vbH} H ${vbX} Z`;
+
+  // 将每个形状转换为 path（并闭合）
+  const subPaths = [];
+  nodes.forEach(el => {
+    const d = shapeToPath(el);
+    if(d && d.trim()) subPaths.push(closeIfNeeded(d.trim()));
+  });
+
+  if(subPaths.length === 0){
+    throw new Error('未找到可转换为路径的元素（path/rect/circle/ellipse/polygon/polyline）。');
+  }
+
+  // 拼接复合 path：outer + 每个子路径（holes） ; 使用空格分隔
+  const compoundD = outerD + ' ' + subPaths.join(' ');
+
+  // 输出新的 svg，只包含一个复合 path（fill-rule=evenodd）
+  const outDoc = document.implementation.createDocument(xmlns, 'svg', null);
+  const outSvg = outDoc.documentElement;
+  if(viewBox) outSvg.setAttribute('viewBox', viewBox);
+  if(width) outSvg.setAttribute('width', width);
+  if(height) outSvg.setAttribute('height', height);
+  outSvg.setAttribute('xmlns', xmlns);
+  outSvg.setAttribute('preserveAspectRatio', orig.getAttribute('preserveAspectRatio') || 'xMidYMid meet');
+
+  const pathEl = outDoc.createElementNS(xmlns, 'path');
+  pathEl.setAttribute('d', compoundD);
+  pathEl.setAttribute('fill', 'black');
+  pathEl.setAttribute('fill-rule', 'evenodd');
+  outSvg.appendChild(pathEl);
+
+  return new XMLSerializer().serializeToString(outSvg);
+}
+
+document.getElementById('do').addEventListener('click', ()=>{
+  const input = document.getElementById('input').value.trim();
+  if(!input){ alert('请粘入 SVG 源码'); return; }
+  try{
+    const out = transformSvg(input);
+    document.getElementById('output').value = out;
+    document.getElementById('preview').innerHTML = out;
+  }catch(e){
+    alert('转换失败：' + (e && e.message ? e.message : e));
+  }
+});
+
+document.getElementById('clear').addEventListener('click', ()=>{
+  document.getElementById('input').value='';
+  document.getElementById('output').value='';
+  document.getElementById('preview').innerHTML='';
+});
+
+document.getElementById('download').addEventListener('click', ()=>{
+  const svg = document.getElementById('output').value;
+  if(!svg) return alert('请先转换得到输出 SVG');
+  const blob = new Blob([svg], {type:'image/svg+xml'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'inverted.svg';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+});
+</script>
+</body>
+</html>
