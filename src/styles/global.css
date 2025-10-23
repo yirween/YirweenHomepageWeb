@@ -130,6 +130,7 @@ h1 {
     left: -9px;
     border-radius: 50%;
     background-color: #000;
+    cursor: pointer;
 }
 
 .lastView {
