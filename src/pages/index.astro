@@ -78,6 +78,7 @@ import "../styles/indexPage.css";
       <div class="maintext" id="maintext"><div style="height: 120vh; width:100%"></div></div>
     </div>
 
+    <!-- 页面基础功能实现 -->
     <script>
         console.log("我喜欢你");
 
@@ -120,8 +121,8 @@ import "../styles/indexPage.css";
 
     </script>
 
+    <!-- 背景图随鼠标滑动效果 -->
     <script>
-        // 背景图随鼠标滑动效果
         const initParallax = () => {
           const img = document.querySelector(".blur-image");
           if (!(img instanceof HTMLImageElement)) return;
@@ -152,9 +153,8 @@ import "../styles/indexPage.css";
         };
         initParallax();
     </script>
-
+    <!-- 图片懒加载 -->
     <script>
-      // 图片懒加载
       const initLazyLoad = () => {
         const observer = new IntersectionObserver(
           (entries) => {
@@ -238,6 +238,7 @@ import "../styles/indexPage.css";
       initLazyLoad();
     </script>
 
+    <!-- 页面下半部分内容 -->
     <!-- <script>
       let lastScroll = 0;
       let nowScroll = 0;
@@ -292,5 +293,7 @@ import "../styles/indexPage.css";
         webHeight = window.innerHeight;
       });
     </script> -->
+
+    <!-- 访问量统计 -->
     <script src="//cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
 </body>

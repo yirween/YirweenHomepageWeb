@@ -25,6 +25,7 @@ h1 {
     font-size: 2.5rem;
 }
 
+/* 正文部分 */
 .maintext {
     font-size: 1.3em;
     margin: 3em 0 50px;
@@ -43,6 +44,7 @@ h1 {
     box-shadow: #ffffff70 0 0 20px;
 }
 
+/* a标签的链接图标 */
 .maintext > a {
     color: #0e181acb;
     text-underline-offset: none;
@@ -273,7 +275,7 @@ h1 {
     color: #555;
 }
 
-/* 相册 */
+/* 相册页 */
 .album {
     width: 100vw;
     height: auto;
